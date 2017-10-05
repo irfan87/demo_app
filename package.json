@@ -1,0 +1,11 @@
+{
+  "name": "demo_app",
+  "version": "1.0.0",
+  "description": "demo app from traversy media",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Ahmad Irfan Mohammad Shukri",
+  "license": "MIT"
+}
