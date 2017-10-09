@@ -1,5 +1,6 @@
 // bring the mongoose here
 let mongoose = require('mongoose');
+let mongoosePaginate = require('mongoose-paginate');
 
 let itemSchema = mongoose.Schema({
     name: {
@@ -17,5 +18,7 @@ let itemSchema = mongoose.Schema({
         required: true
     }
 });
+
+itemSchema.plugin(mongoosePaginate)
 
 let Item = module.exports = mongoose.model('Item', itemSchema);

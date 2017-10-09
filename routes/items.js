@@ -1,18 +1,40 @@
 let express = require('express');
+let paginate = require('express-paginate');
+let mongoosePaginate = require('mongoose-paginate');
+
 let routes = express.Router();
 
 // bring the item model to this page
 let Item = require('../models/item');
 
+routes.use(paginate.middleware(10, 50));
+
 // get all items as a list
-routes.get('/', (req, res) => {
-    Item.find({}, (err, items) => {
+routes.get('/', (req, res, next) => {
+    Item.paginate({}, {page: req.query.page, limit: req.query.limit}, (err, items) => {
         if(err) {
             res.json({'error_msg': err});
         } else {
-            res.json({items: items});
+            res.format({
+                json(){
+                    res.json({
+                        object: 'list',
+                        has_more: paginate.hasNextPages(req)(items.pages),
+                        data: items.docs
+                    });
+                }
+            });
         }
     });
+
+
+    // Item.find({}, (err, items) => {
+    //     if(err) {
+    //         res.json({'error_msg': err});
+    //     } else {
+    //         res.json({items: items});
+    //     }
+    // });
 });
 
 // post the new items 

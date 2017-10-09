@@ -4,6 +4,7 @@ let bodyParser = require('body-parser');
 let cors = require('cors');
 let passport = require('passport');
 let mongoose = require('mongoose');
+let paginate = require('express-paginate');
 
 let config = require('./config/database');
 
@@ -25,6 +26,9 @@ let port = process.env.PORT || 3000;
 
 // enable cors
 app.use(cors());
+
+// pagination
+app.use(paginate.middleware(10, 50));
 
 // set static folder file
 app.use(express.static(path.join(__dirname, 'public')));
