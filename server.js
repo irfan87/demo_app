@@ -15,11 +15,11 @@ mongoose.connection.on('connected', () => {
 
 mongoose.connection.on('error', (err) => {
     console.log('connection error ' + err);
-})
+});
 
 let app = express();
 
-let users = require('./routes/users');
+let items = require('./routes/items');
 
 let port = process.env.PORT || 3000;
 
@@ -33,7 +33,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
-app.use('/users', users);
+app.use('/items', items);
 
 app.get('/', (req, res) => {
     res.send('Hello world');
